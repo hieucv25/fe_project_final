@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import Swal from 'sweetalert2';
+import "@fortawesome/react-fontawesome"
 
 function isValidEmail(value) {
   const regex = /^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -201,7 +202,7 @@ export default function Login() {
                         </div>
                         <Link to={`/login_with_number_phone`} className="text-white icon-container">
                           <i className="fa-solid fa-phone fa-lg mx-2 px-2"></i>
-                          Phone Number
+                          Phone
                         </Link>
                         {/* <div className="text-white icon-container">
                           <i className="bx bx-log-out bx-sm mx-2 px-2" onClick={logout} />
