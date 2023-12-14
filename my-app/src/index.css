@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap');
-
+/* <!-- Icon Font Stylesheet --> */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css');
+/* <!-- Google Web Fonts --> */
+@import url('https://fonts.googleapis.com');
+@import url('https://fonts.gstatic.com');
+/* <!-- Boxicons --> */
+@import url('https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css');
 /********** Template CSS **********/
 :root {
 	--primary: #D81324;
