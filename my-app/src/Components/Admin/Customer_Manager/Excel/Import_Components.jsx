@@ -1,7 +1,7 @@
 import React from 'react'
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { toast } from 'react-toastify';
-import Customer_Service from '../../../../Api/Customer_Service';
+import Customer_Service from '../../../../Api/Admin/Customer_Service';
 
 export default function Import_Components(props) {
 

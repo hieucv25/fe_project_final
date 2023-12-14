@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Login_Service from "../../Api/Login_Service";
+import Login_Service from "../../Api/Author/Login_Service";
 import { getUserInfoFromToken, hasRole } from "./util";
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
@@ -54,7 +54,7 @@ export default function Login() {
               const userInfo2 = getUserInfoFromToken(refresh_token);
               localStorage.setItem("expirationTime_Token", new Date(userInfo.exp * 1000));
               localStorage.setItem("expirationTime_Refresh_Token", new Date(userInfo2.exp * 1000));
-              console.log(localStorage.getItem("expirationTime"));
+              localStorage.setItem("userId", data.idUser);
               if (userInfo) {
                 const isAdmin = hasRole(userInfo, 'ADMIN');
                 const isCustomer = hasRole(userInfo, 'CUSTOMER');
@@ -108,6 +108,7 @@ export default function Login() {
       const userInfo2 = getUserInfoFromToken(refresh_token);
       localStorage.setItem("expirationTime_Token", new Date(userInfo.exp * 1000));
       localStorage.setItem("expirationTime_Refresh_Token", new Date(userInfo2.exp * 1000));
+      localStorage.setItem("idUser", data.idUser);
       console.log(localStorage.getItem("expirationTime"));
       if (userInfo) {
         const isAdmin = hasRole(userInfo, 'ADMIN');

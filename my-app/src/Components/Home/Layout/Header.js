@@ -1,20 +1,42 @@
 import "../../../index.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import User_Service from "../../../Api/User/User_Service";
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 export default function Header() {
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(false);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const userId = localStorage.getItem("idUser");
+
   useEffect(() => {
-    if (token == !undefined) {
-      setStatus(1);
+    if (token !== null) {
+      setStatus(true);
     }
-  }, [token])
+  }, [])
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    if (token !== null) {
+      const response = await User_Service.getHistoryByUser(userId);
+      setData(response.data);
+      console.log(response.data);
+    }
+  };
+
   const refresh = (e) => {
+    e.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
-    toast.success('🦄 Bạn Đã Đăng Xuất!', {
+    localStorage.removeItem("idUser");
+    toast.success('Bạn Đã Đăng Xuất!', {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -25,6 +47,7 @@ export default function Header() {
       theme: "light",
     });
     setStatus(0);
+    navigate('/login');
   }
   return (
     <>
@@ -69,12 +92,12 @@ export default function Header() {
                 className="btn btn-sm-square bg-white text-primary me-0"
                 to="/login"
               >
-                <i class='bx bx-log-in'></i>
+                <i className='bx bx-log-in'></i>
               </Link>) : (<Link
                 className="btn btn-sm-square bg-white text-primary me-0"
-                to="/login" onClick={refresh}
+                to="/logout" onClick={refresh}
               >
-                <i class='bx bx-log-out'></i>
+                <i className='bx bx-log-out'></i>
               </Link>)}
             </div>
           </div>
@@ -89,7 +112,7 @@ export default function Header() {
         >
           <h2 className="m-0 text-primary">
             <i className="fa fa-car me-3" />
-            J7_Plus
+            Booking Car
           </h2>
         </Link>
         <button
@@ -103,27 +126,86 @@ export default function Header() {
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto p-4 p-lg-0">
             <Link to="/home" className="nav-item nav-link active">
-              Home
+              <i className="fa-solid fa-house"></i>
             </Link>
             <Link to="/about" className="nav-item nav-link">
-              About
+              <i className="fa-solid fa-plus"></i>
             </Link>
             <Link to="/service" className="nav-item nav-link">
-              Services
+              <i className="fa-solid fa-gears"></i>
             </Link>
             <Link to="/booking" className="nav-item nav-link">
-              Booking
+              <i className="bi bi-bookmark-plus-fill"></i>
             </Link>
             <Link to="/contact" className="nav-item nav-link">
-              Contact
+              <i className="bi bi-telephone-forward-fill"></i>
             </Link>
+            <div className="nav-item nav-link" style={{ position: 'relative' }}>
+              <div className="me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink"
+                data-mdb-toggle="dropdown" aria-expanded="false">
+                <i className="fas fa-bell"></i>
+                <span className="badge rounded-pill badge-notification bg-danger">{data.length}</span>
+              </div>
+              <ul className="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink" style={{
+                position: 'absolute',
+                top: '100%',
+                left: '-500%',
+              }}>
+                {data.map((appoint) => (
+                  <li key={appoint.idHistoricAppointment}>
+                    <div className="dropdown-item" style={{ fontSize: 10 }}>
+                      {appoint.status === 0 && (
+                        <span>Bạn Đặt Lịch Hẹn Thành Công Với Mã Lịch Hẹn Là
+                          <span className="text-notifi">
+                            {appoint.codeAppointment}.</span> Vui Lòng Chờ Xác Nhận!
+                          <br />
+                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
+                        </span>
+                      )}
+                      {appoint.status === 1 && (
+                        <span>Lịch Hẹn Có Mã :
+                          <span className="text-notifi">
+                            {appoint.codeAppointment}.</span> Đã Được Xác Nhận!
+                          <br />
+                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
+                        </span>
+                      )}
+                      {appoint.status === 2 && (
+                        <span>Lịch Hẹn Có Mã :
+                          <span className="text-notifi">
+                            {appoint.codeAppointment}.</span> Đã Hoàn Thành!
+                          <br />
+                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
+                        </span>
+                      )}
+                      {appoint.status === 3 && (
+                        <span>Lịch Hẹn Có Mã :
+                          <span className="text-notifi">
+                            {appoint.codeAppointment}.</span> Đã Quá Hạn!
+                          <br />
+                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
+                        </span>
+                      )}
+                      {appoint.status === 4 && (
+                        <span>Bạn Đã Huỷ Lịch Hẹn Có Mã :
+                          <span className="text-notifi">
+                            {appoint.codeAppointment}.</span>
+                          <br />
+                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <a href="" className="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
+          <Link to={"/contact"} className="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
             Get A Quote
             <i className="fa fa-arrow-right ms-3" />
-          </a>
+          </Link>
         </div>
-      </nav>
+      </nav >
       {/* Navbar End */}
     </>
   );

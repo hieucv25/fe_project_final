@@ -1,19 +1,25 @@
 import "../../../css/admin.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 export default function Sidebar() {
+
+  const navigate = useNavigate();
+
   const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
-    window.location = "/home";
+    navigate("/home");
   }
+
   return (
     <>
       <section id="sidebar">
         <Link to="#" className="brand">
-          <i className="bx bxs-smile" />
-          <span className="text">AdminHub</span>
+          <i className="bx bx-list-ul" />
+          <span className="text">Admin Pages</span>
         </Link>
         <ul className="side-menu top">
           <li >
@@ -30,21 +36,21 @@ export default function Sidebar() {
               <span className="text">Lịch Hẹn</span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="#">
               <i className="bx bxs-doughnut-chart" />
               <span className="text">Analytics</span>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to="#">
-              <i className="bx bxs-message-dots" />
+              <i class="bi bi-chat-dots-fill"></i>
               <span className="text">Message</span>
             </Link>
           </li>
           <li>
             <Link to="#">
-              <i className="bx bxs-group" />
+              <i class="bi bi-people-fill"></i>
               <span className="text">Team</span>
             </Link>
           </li>
@@ -52,7 +58,7 @@ export default function Sidebar() {
         <ul className="side-menu">
           <li>
             <Link to="/home" className="logout" onClick={logout}>
-              <i className="bx bxs-log-out-circle" />
+              <i class="bi bi-box-arrow-left"></i>
               <span className="text">Logout</span>
             </Link>
           </li>

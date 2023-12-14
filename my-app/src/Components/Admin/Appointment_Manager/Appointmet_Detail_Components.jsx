@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import Customer_Service from "../../../Api/Customer_Service";
-import Appointment_Service from "../../../Api/Appointment_Service";
+import Customer_Service from "../../../Api/Admin/Customer_Service";
+import Appointment_Service from "../../../Api/Admin/Appointment_Service";
 import moment from 'moment';
 
 function Appointment_Detail_Components() {
+
     const { id } = useParams();
     const [gioDat, setGioDat] = useState('');
     const [ngayDat, setNgayDat] = useState('');
@@ -15,6 +16,7 @@ function Appointment_Detail_Components() {
     const [thoiGianDuKien, setThoiGianDuKien] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [customer, setCustomer] = useState([]);
+
     useEffect(() => {
         Appointment_Service.getById(id).then((response) => {
             let appointment = response.data;

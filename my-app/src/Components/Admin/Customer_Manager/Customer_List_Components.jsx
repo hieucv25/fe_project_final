@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import Customer_Service from "../../../Api/Customer_Service";
-// import Common_Util from "../../../Utils/Common_Util";
-import { Modal, Button } from "react-bootstrap";
-// import Select from 'react-select';
+import Customer_Service from "../../../Api/Admin/Customer_Service";
+import { Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import * as XLSX from 'xlsx/xlsx.mjs';
 import Export_Components from './Excel/Export_Components';
 import Import_Components from './Excel/Import_Components'
 import Modal_Detail_Customer from "./Modal/Modal_Detail_Customer";
@@ -32,7 +28,8 @@ export default function Customer_List_Components() {
     }, [showModal])
 
     useEffect(() => {
-        fetchDataByName();
+        if (nameSearch !== '')
+            fetchDataByName();
     }, [nameSearch])
 
     const fetchData = async () => {
@@ -43,7 +40,7 @@ export default function Customer_List_Components() {
             setPageData(data);
         }
         catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 
@@ -62,6 +59,7 @@ export default function Customer_List_Components() {
     const showCustomerDetailModal = (customer) => {
         setCustomer(customer);
         setShowModal(true);
+        setNameSearch('');
     };
 
     const myStyle = {

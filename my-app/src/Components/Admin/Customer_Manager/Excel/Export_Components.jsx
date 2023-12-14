@@ -1,5 +1,5 @@
 import React from 'react'
-import Customer_Service from '../../../../Api/Customer_Service';
+import Customer_Service from '../../../../Api/Admin/Customer_Service';
 import Common_Util from '../../../../Utils/Common_Util';
 
 export default function Export_Components(props) {

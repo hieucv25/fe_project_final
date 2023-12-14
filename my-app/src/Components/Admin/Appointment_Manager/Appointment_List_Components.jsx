@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import Appointment_Service from "../../../Api/Appointment_Service";
+import Appointment_Service from "../../../Api/Admin/Appointment_Service";
 import moment from 'moment';
 // import * as XLSX from 'xlsx/xlsx.mjs';
 // import Common_Util from "../../../Utils/Common_Util";

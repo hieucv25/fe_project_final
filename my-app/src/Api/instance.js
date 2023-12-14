@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const PORT = "http://localhost:8080/";
 
 export const instance = axios.create({
@@ -11,9 +12,12 @@ export const instance = axios.create({
 
 axios.interceptors.request.use(
   function (config) {
+    const time = new Date(localStorage.getItem('expirationTime_Token'));
+    const now = new Date();
+    if (now >= time) {
+      return Promise.reject("Expired token");
+    }
     return config;
-    // check if acctoken localstorage
-    //  retun config.header {}
   },
   function (error) {
     // Do something with request error
@@ -32,3 +36,4 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+

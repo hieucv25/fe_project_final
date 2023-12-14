@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Customer_Service from "../../../../Api/Customer_Service";
-import { Modal, Button } from "react-bootstrap";
+import Customer_Service from "../../../../Api/Admin/Customer_Service";
+import { Modal } from "react-bootstrap";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import Province_Service from "../../../../Api/Province_Service";
+import Province_Service from "../../../../Api/Admin/Province_Service";
 import Swal from 'sweetalert2';
 
 export default function Modal_Detail_Customer(props) {

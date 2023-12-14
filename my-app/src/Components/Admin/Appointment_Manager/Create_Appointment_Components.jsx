@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import Customer_Service from "../../../Api/Customer_Service";
+import Customer_Service from "../../../Api/Admin/Customer_Service";
 import { Modal, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Province_Service from "../../../Api/Province_Service";
-import Appointment_Service from "../../../Api/Appointment_Service";
-
+import Province_Service from "../../../Api/Admin/Province_Service";
+import Appointment_Service from "../../../Api/Admin/Appointment_Service";
 
 function Create_Appointment_Components() {
     const [gioDat, setGioDat] = useState('');

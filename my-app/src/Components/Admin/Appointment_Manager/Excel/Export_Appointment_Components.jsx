@@ -1,5 +1,5 @@
 import React from 'react';
-import Appointment_Service from '../../../../Api/Appointment_Service';
+import Appointment_Service from '../../../../Api/Admin/Appointment_Service';
 import moment from 'moment';
 import Common_Util from '../../../../Utils/Common_Util';
 

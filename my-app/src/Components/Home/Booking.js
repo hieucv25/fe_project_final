@@ -1,8 +1,35 @@
 import "../../index.css";
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+function isValidPhoneNumber(value) {
+  const regex = /^(086|096|097|098|039|038|037|036|035|034|033|032|091|094|088|083|084|085|081|082|070|079|077|076|078|089|090|093|092|052|056|058|099|059|087)\d{7}$/;
+  return regex.test(value);
+}
+
+const schema = yup.object().shape({
+  phone: yup.string().matches(isValidPhoneNumber, 'Số Điện Thoại Không Hợp Lệ!').required('Số Điện Thoại không được trống!'),
+});
+
 export default function Booking() {
+
+  const form = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
+
+  const data = useState({
+    time: '',
+    date: '',
+    service: '',
+    phone: ''
+  });
+
   return (
     <>
       <Header />
@@ -123,17 +150,14 @@ export default function Booking() {
                       <input
                         type="text"
                         className="form-control border-0"
-                        placeholder="Your Name"
+                        placeholder="Your Phone Number"
                         style={{ height: 55 }}
+                        value={data.phone}
                       />
                     </div>
                     <div className="col-12 col-sm-6">
-                      <input
-                        type="email"
-                        className="form-control border-0"
-                        placeholder="Your Email"
-                        style={{ height: 55 }}
-                      />
+                      <input type="date" style={{ height: 55 }}
+                        className='form-control border-0' />
                     </div>
                     <div className="col-12 col-sm-6">
                       <select
@@ -147,20 +171,23 @@ export default function Booking() {
                       </select>
                     </div>
                     <div className="col-12 col-sm-6">
-                      <div
-                        className="date"
-                        id="date1"
-                        data-target-input="nearest"
-                      >
-                        <input
-                          type="text"
-                          className="form-control border-0 datetimepicker-input"
-                          placeholder="Service Date"
-                          data-target="#date1"
-                          data-toggle="datetimepicker"
-                          style={{ height: 55 }}
-                        />
-                      </div>
+                      <select class="form-select border-0" aria-label="Default select example" style={{ height: 55 }}>
+                        <option selected>Select Set Time</option>
+                        <option value="07:30">7:30</option>
+                        <option value="08:30">8:30</option>
+                        <option value="09:30">9:30</option>
+                        <option value="10:30">10:30</option>
+                        <option value="11:30">11:30</option>
+                        <option value="13:30">13:30</option>
+                        <option value="14:30">14:30</option>
+                        <option value="15:30">15:30</option>
+                        <option value="16:30">16:30</option>
+                        <option value="17:30">17:30</option>
+                        <option value="18:30">18:30</option>
+                        <option value="19:30">19:30</option>
+                        <option value="20:30">20:30</option>
+                      </select>
+                      {/* </div> */}
                     </div>
                     <div className="col-12">
                       <textarea

@@ -1,4 +1,4 @@
-import { instance } from "./instance";
+import { instance } from "../instance";
 
 const API = "api/admin/lich-hen/";
 
@@ -49,7 +49,6 @@ class Appointment_Service {
     findByName(keyword, number) {
         return instance.get(API + "filter/name/" + keyword + "/" + number, { headers });
     }
-    /// test branch
 }
 
 export default new Appointment_Service();

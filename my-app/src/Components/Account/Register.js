@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import Register_Service from "../../Api/Register_Service";
+import Register_Service from "../../Api/Author/Register_Service";
 import { toast } from 'react-toastify';
 import OTPInput from "otp-input-react";
 import { authentication } from "../../Api/Fire_Base_Config";
-import { RecaptchaVerifier, signInWithPhoneNumber, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber, sendSignInLinkToEmail } from "firebase/auth";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 

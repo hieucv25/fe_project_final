@@ -1,11 +1,18 @@
-import React from 'react';
-import { Button } from 'antd';
+import React, { useState } from 'react';
+import "../../../css/sidebarMenu.css";
+import { Space } from 'antd'
 
 export default function SideBarMenu() {
 
     return (
-        <div className='App-header'>
-            <Button type='primary'>AAA</Button>
-        </div>
+        <>
+            <div className='header'> header
+                <Space>
+                    <div className='side_menu'>Menu</div>
+                    <div className='page_content'>Content</div>
+                </Space>
+
+            </div>
+        </>
     )
-}
+};

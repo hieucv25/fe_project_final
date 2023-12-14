@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Appointment_Service from "../../../../Api/Appointment_Service";
+import Appointment_Service from "../../../../Api/Admin/Appointment_Service";
 import { Modal } from "react-bootstrap";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import 'react-toastify/dist/ReactToastify.css';
-import Customer_Service from "../../../../Api/Customer_Service";
+import Customer_Service from "../../../../Api/Admin/Customer_Service";
 
 export default function Modal_Detail_Appointment(props) {
 

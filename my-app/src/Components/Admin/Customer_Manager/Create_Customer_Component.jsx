@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import Customer_Service from "../../../Api/Customer_Service";
-import Province_Service from "../../../Api/Province_Service";
+import Customer_Service from "../../../Api/Admin/Customer_Service";
+import Province_Service from "../../../Api/Admin/Province_Service";
 import Swal from 'sweetalert2';
 import { Input } from 'antd';
 import Select from 'react-select';
