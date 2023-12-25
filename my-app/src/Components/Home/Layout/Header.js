@@ -5,29 +5,41 @@ import { Link } from "react-router-dom";
 import User_Service from "../../../Api/User/User_Service";
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import NotificationRender from "./Notification";
+// import NotificationRender from "./Notification";
 
 export default function Header() {
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(0);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [user, setUser] = useState();
   const userId = localStorage.getItem("idUser");
 
   useEffect(() => {
     if (token !== null) {
-      setStatus(true);
+      setStatus(1);
     }
   }, [])
 
   useEffect(() => {
-    fetchData();
+    if (userId !== null) {
+      fetchData();
+      getInformation();
+    }
   }, [])
 
   const fetchData = async () => {
     if (token !== null) {
       const response = await User_Service.getHistoryByUser(userId);
       setData(response.data);
-      console.log(response.data);
+    }
+  };
+
+  const getInformation = async () => {
+    if (token !== null) {
+      const response = await User_Service.getInformation(userId);
+      setUser(response.data);
     }
   };
 
@@ -93,12 +105,14 @@ export default function Header() {
                 to="/login"
               >
                 <i className='bx bx-log-in'></i>
-              </Link>) : (<Link
-                className="btn btn-sm-square bg-white text-primary me-0"
-                to="/logout" onClick={refresh}
-              >
-                <i className='bx bx-log-out'></i>
-              </Link>)}
+              </Link>) : (
+                <Link
+                  className="btn btn-sm-square bg-white text-primary me-0"
+                  to="/logout" onClick={refresh}
+                >
+                  <i className='bx bx-log-out'></i>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -146,58 +160,18 @@ export default function Header() {
                 <i className="fas fa-bell"></i>
                 <span className="badge rounded-pill badge-notification bg-danger">{data.length}</span>
               </div>
-              <ul className="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink" style={{
-                position: 'absolute',
-                top: '100%',
-                left: '-500%',
-              }}>
-                {data.map((appoint) => (
-                  <li key={appoint.idHistoricAppointment}>
-                    <div className="dropdown-item" style={{ fontSize: 10 }}>
-                      {appoint.status === 0 && (
-                        <span>Bạn Đặt Lịch Hẹn Thành Công Với Mã Lịch Hẹn Là
-                          <span className="text-notifi">
-                            {appoint.codeAppointment}.</span> Vui Lòng Chờ Xác Nhận!
-                          <br />
-                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
-                        </span>
-                      )}
-                      {appoint.status === 1 && (
-                        <span>Lịch Hẹn Có Mã :
-                          <span className="text-notifi">
-                            {appoint.codeAppointment}.</span> Đã Được Xác Nhận!
-                          <br />
-                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
-                        </span>
-                      )}
-                      {appoint.status === 2 && (
-                        <span>Lịch Hẹn Có Mã :
-                          <span className="text-notifi">
-                            {appoint.codeAppointment}.</span> Đã Hoàn Thành!
-                          <br />
-                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
-                        </span>
-                      )}
-                      {appoint.status === 3 && (
-                        <span>Lịch Hẹn Có Mã :
-                          <span className="text-notifi">
-                            {appoint.codeAppointment}.</span> Đã Quá Hạn!
-                          <br />
-                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
-                        </span>
-                      )}
-                      {appoint.status === 4 && (
-                        <span>Bạn Đã Huỷ Lịch Hẹn Có Mã :
-                          <span className="text-notifi">
-                            {appoint.codeAppointment}.</span>
-                          <br />
-                          <span className="notifi-time">{moment(appoint.createAt).format('YYYY-MM-DD HH:mm')}</span>
-                        </span>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              {token ? (
+                <ul className="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink" style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: '-500%',
+                }}>
+                  {data.map((appoint) => (
+                    <NotificationRender appoint={appoint}></NotificationRender>
+                  ))}
+                </ul>
+              ) : (<span></span>)}
+
             </div>
           </div>
           <Link to={"/contact"} className="btn btn-primary py-4 px-lg-5 d-none d-lg-block">

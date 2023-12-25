@@ -1,21 +1,21 @@
 import { Routes, Route } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Home_Page from "./Components/Home/Home_Page";
-import Service from "./Components/Home/Service";
-import About from "./Components/Home/About";
-import Booking from "./Components/Home/Booking";
-import Contact from "./Components/Home/Contact";
-import Login from "./Components/Account/Login";
-import Register from "./Components/Account/Register";
-import Create_Customer_Components from "./Components/Admin/Customer_Manager/Create_Customer_Component";
-import Customer_List_Components from "./Components/Admin/Customer_Manager/Customer_List_Components";
+import Home_Page from "./Client/Components/Home_Page";
+import Service from "./Client/Components/Service";
+import About from "./Client/Components/About";
+import Booking from "./Client/Components/Booking";
+import Contact from "./Client/Components/Contact";
+import Login from "./Author/Components/Login";
+import Register from "./Author/Components/Register";
+import Create_Customer_Components from "./Admin/Components/Customer_Manager/Create_Customer_Component";
+import Customer_List_Components from "./Admin/Components/Customer_Manager/Customer_List_Components";
 import { APP_ROUTERS } from "./Contants";
-import Appointment_List_Components from "./Components/Admin/Appointment_Manager/Appointment_List_Components";
-import Create_Appointment_Components from "./Components/Admin/Appointment_Manager/Create_Appointment_Components";
-import Appointment_Detail_Components from "./Components/Admin/Appointment_Manager/Appointmet_Detail_Components";
+import Appointment_List_Components from "./Admin/Components/Appointment_Manager/Appointment_List_Components";
+import Create_Appointment_Components from "./Admin/Components/Appointment_Manager/Create_Appointment_Components";
+import Appointment_Detail_Components from "./Admin/Components/Appointment_Manager/Appointmet_Detail_Components";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login_With_NumberPhone from "./Components/Account/Login_With_NumberPhone";
+import Login_With_NumberPhone from "./Author/Components/Login_With_NumberPhone";
 function App() {
   return (
     <div className="App">

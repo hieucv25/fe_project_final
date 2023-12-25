@@ -14,6 +14,9 @@ class User_Service {
     getHistoryByUser(idUser) {
         return instance.get(API + "/get_history_appointment/" + idUser, { headers });
     }
+    getInformation(idUser) {
+        return instance.get(API + "/get_information/" + idUser, { headers });
+    }
 }
 
 export default new User_Service();

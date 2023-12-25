@@ -1,4 +1,4 @@
-import { instance } from "../instance";
+import { instance } from "../../Config/instance";
 
 const API = "api/admin/khach-hang/";
 const token = localStorage.getItem('token');
